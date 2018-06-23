@@ -1,0 +1,85 @@
+<% include blocks/header.ejs %>
+
+      <!-- begin:article -->
+      <div class="row">
+        <!-- begin:sidebar -->
+        <div class="col-md-3 col-sm-4 sidebar">
+          <div class="row">
+            <div class="col-md-12">
+              <!-- break -->
+              <div class="widget">
+                <div class="widget-title">
+                  <h3>Category</h3>
+                </div>
+                <ul class="nav nav-pills nav-stacked">
+                    <%if(id !== -1){%>
+                      <li><a href="/danh-muc">All</a></li>
+                    <%}else{%>
+                      <li class="active"><a href="/danh-muc">All</a></li>
+                    <%}%>
+                    <%if(catogeries){
+                      catogeries.forEach((catogery, index) => {
+                    %>
+                        <%if(catogery.id === id){%>
+                          <li class="active"><a href="/danh-muc?catogery=<%=catogery.id%>"><%=catogery.name%></a></li>
+                        <%}else{%>
+                          <li><a href="/danh-muc?catogery=<%=catogery.id%>"><%=catogery.name%></a></li>
+                        <%}%>
+                    <%});}%>
+                </ul>
+              </div>
+              <!-- break -->
+              <div class="widget">
+                <div class="widget-title">
+                  <h3>Payment Confirmation</h3>
+                </div>
+                <p>Already make a payment ? please confirm your payment by filling <a href="confirm.html">this form</a></p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- end:sidebar -->
+
+        <!-- begin:content -->
+        <div class="col-md-9 col-sm-8 content">
+          <div class="row">
+            <div class="col-md-12">                
+                <%if(category === null){%>
+                  <h3 style="margin: 0px">Tất cả</h3> 
+                <%}else{%>
+                  <h3 style="margin: 0px"><%= category.name%></h3> 
+                <%}%>
+              <hr />
+
+              <!-- begind:item -->
+              <div class="row product-container">
+                <%if(products){%>
+                  <%if(products.length > 0){%>
+                    <%products.forEach(product => {%>
+                      <div class="col-md-4 col-sm-4 col-xs-6">
+                          <div class="thumbnail product-item">
+                            <a href="/chi-tiet-san-pham/<%= product.category_id%>/<%= product.id%>"><img alt="" src="/product/<%= product.image%>"></a>
+                            <div class="caption">
+                              <h5><%= product.name%></h5>
+                              <p>$<%= product.price%></p>
+                            </div>
+                            <div class="product-item-badge">New</div>
+                          </div>
+                        </div>
+                    <%})%>
+                  <%}else{%>
+                    <div class="col-md-4 col-sm-4 col-xs-6 text-center"><p>Khong co san pham nao!</p></div>
+                  <%}%>
+
+                <%}%>
+              </div>
+              <!-- end:item -->
+            </div>
+          </div>
+        </div>
+        <!-- end:content -->
+      </div>
+      <!-- end:article -->
+
+<% include blocks/footer.ejs %>
